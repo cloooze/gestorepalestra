@@ -43,7 +43,7 @@
 </div>
 
 
-<!-- Non più utilizzato -->
+<!-- Non piï¿½ utilizzato -->
 <div th:fragment="ricerca_utente">
 	<form>
 		<div class="row">
@@ -87,41 +87,14 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-	        <tr>
-	            <td>1</td>
+	    	<tr th:each="user : ${allUsers}">
+	            <td th:text="${user.nome}"></td>
 	            <td>Andrea</td>
 	            <td>Braghese</td>
 	            <td>BRGNDR82S08G274S</td>
 	            <td>cloooze@gmail.com</td>
 	            <td>+39 3351051146</td>
-	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
-	        </tr>
-	        <tr>
-	            <td>2</td>
-	            <td>Andrea</td>
-	            <td>Rossi</td>
-	            <td>BRGNDR82S08G274S</td>
-	            <td>cloooze@gmail.com</td>
-	            <td>+39 3351051146</td>
-	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
-	        </tr>
-	        <tr>
-	            <td>3</td>
-	            <td>Andrea</td>
-	            <td>Verdi</td>
-	            <td>BRGNDR82S08G274S</td>
-	            <td>cloooze@gmail.com</td>
-	            <td>+39 3351051146</td>
-	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
-	        </tr>
-	        <tr>
-	            <td>4</td>
-	            <td>Andrea</td>
-	            <td>Braghese</td>
-	            <td>BRGNDR82S08G274S</td>
-	            <td>cloooze@gmail.com</td>
-	            <td>+39 3351051146</td>
-	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
+	            <td><a href="/getDettaglioUtente?codiceFiscale=${user.codiceFiscale}" class="btn btn-sm btn-primary">Dettagli</a></td>
 	        </tr>
 	</table>
 </div>

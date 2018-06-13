@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.DateUtils;
 
@@ -15,6 +18,7 @@ import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
 @Controller
+@SessionAttributes("allUsers")
 public class DemoController {
 	
 	@Autowired
@@ -69,6 +73,15 @@ public class DemoController {
 	@ModelAttribute("utente")
 	public User getModelUtente() {
 		return new User();
+	}
+	
+	@ModelAttribute("allUsers")
+	public List<User> getAllUsers() {
+		List<User> res = new ArrayList<User>();
+		for (int i = 0; i < 500; i++) {
+			res.add(getUserMock());
+		}
+		return res;
 	}
 	
 	@RequestMapping(value = "/gestioneUtenti", method = RequestMethod.GET)
