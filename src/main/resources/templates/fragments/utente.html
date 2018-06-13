@@ -1,0 +1,164 @@
+<div th:fragment="nuovo_utente">
+	<div class="row">
+		<div class="col-md-9">
+			<form th:object="${utente}">
+			    <div class="form-group">
+			        <label for="inputNome">Nome *</label>
+			        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
+			    </div>
+			    <div class="form-group">
+			        <label for="inputCognome">Cognome *</label>
+			        <input type="text" class="form-control" id="inputCognome" th:field="*{cognome}" placeholder="Cognome">
+			    </div>
+			    <div class="form-group">
+			        <label for="inputEmail">Email *</label>
+			        <input type="email" class="form-control" id="inputEmail" th:field="*{email}" placeholder="Email">
+			    </div>
+			    <div class="form-group">
+			        <label for="inputCodiceFiscale">Codice Fiscale *</label>
+			        <input type="text" class="form-control" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale">
+			    </div>
+			    <div class="form-group">
+			        <label for="inputIndirizzo">Indirizzo</label>
+			        <input type="text" class="form-control" id="inputIndirizzo" th:field="*{indirizzo}" placeholder="Indirizzo">
+			    </div>
+			    <div class="form-group">
+			        <label for="inputCitta">Citt&agrave;</label>
+			        <input type="text" class="form-control" id="inputCitta" th:field="*{citta}" placeholder="Citt&agrave;">
+			    </div>
+			    
+			     <div class="form-group">
+			        <label for="inputNumeroTelefono">Telefono *</label>
+			        <!--  <input type="text" class="form-control" id="inputCitta" placeholder="Citt&agrave;"> -->
+			        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
+			    </div>
+			    <button type="submit" class="btn btn-primary">Inserisci</button>
+			    <button type="reset" class="btn btn-danger">Reset</button>
+			</form>
+		</div>
+		<div class="col-md-3" id="istrutzioni">
+			<!--  colonna vuota per eventuali istruzioni -->
+		</div>
+	</div>
+</div>
+
+
+<!-- Non più utilizzato -->
+<div th:fragment="ricerca_utente">
+	<form>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+			        <label for="inputNome">Nome</label>
+			        <input type="text" class="form-control" id="inputNome" placeholder="Nome">
+			    </div>
+			    <div class="form-group">
+			        <label for="inputCognome">Cognome</label>
+			        <input type="text" class="form-control" id="inputCognome" placeholder="Cognome">
+			    </div>
+			    <button type="submit" class="btn btn-primary">Cerca</button>
+				<button type="reset" class="btn btn-danger">Reset</button>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+			        <label for="inputEmail">Email</label>
+			        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+			    </div>
+			    <div class="form-group">
+			        <label for="inputCodiceFiscale">Codice Fiscale</label>
+			        <input type="text" class="form-control" id="inputCodiceFiscale" placeholder="Codice Fiscale">
+			    </div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div th:fragment="ricerca_utente_risultati">
+	<table id="example" class="table table-striped table-bordered" style="width:100%">
+	    <thead>
+	        <tr>
+	        	<th>ID Tessera</th>
+	            <th>Nome</th>
+	            <th>Cognome</th>
+	            <th>Codice Fiscale</th>
+	            <th>Email</th>
+	            <th>Telefono</th>
+	            <th>Azione</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>1</td>
+	            <td>Andrea</td>
+	            <td>Braghese</td>
+	            <td>BRGNDR82S08G274S</td>
+	            <td>cloooze@gmail.com</td>
+	            <td>+39 3351051146</td>
+	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
+	        </tr>
+	        <tr>
+	            <td>2</td>
+	            <td>Andrea</td>
+	            <td>Rossi</td>
+	            <td>BRGNDR82S08G274S</td>
+	            <td>cloooze@gmail.com</td>
+	            <td>+39 3351051146</td>
+	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
+	        </tr>
+	        <tr>
+	            <td>3</td>
+	            <td>Andrea</td>
+	            <td>Verdi</td>
+	            <td>BRGNDR82S08G274S</td>
+	            <td>cloooze@gmail.com</td>
+	            <td>+39 3351051146</td>
+	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
+	        </tr>
+	        <tr>
+	            <td>4</td>
+	            <td>Andrea</td>
+	            <td>Braghese</td>
+	            <td>BRGNDR82S08G274S</td>
+	            <td>cloooze@gmail.com</td>
+	            <td>+39 3351051146</td>
+	            <td><a href="/getDettaglioUtente?codiceFiscale=asd" class="btn btn-sm btn-primary">Dettagli</a></td>
+	        </tr>
+	</table>
+</div>
+
+<div th:fragment="modifica_utente">
+	<form th:object="${utente}">
+	    <div class="form-group">
+	        <label for="inputNome">Nome *</label>
+	        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
+	    </div>
+	    <div class="form-group">
+	        <label for="inputCognome">Cognome *</label>
+	        <input type="text" class="form-control" id="inputCognome" th:field="*{cognome}" placeholder="Cognome">
+	    </div>
+	    <div class="form-group">
+	        <label for="inputEmail">Email *</label>
+	        <input type="email" class="form-control" id="inputEmail" th:field="*{email}" placeholder="Email">
+	    </div>
+	    <div class="form-group">
+	        <label for="inputCodiceFiscale">Codice Fiscale *</label>
+	        <input type="text" class="form-control" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale" disabled="disabled">
+	    </div>
+	    <div class="form-group">
+	        <label for="inputIndirizzo">Indirizzo</label>
+	        <input type="text" class="form-control" id="inputIndirizzo" th:field="*{indirizzo}" placeholder="Indirizzo">
+	    </div>
+	    <div class="form-group">
+	        <label for="inputCitta">Citt&agrave;</label>
+	        <input type="text" class="form-control" id="inputCitta" th:field="*{citta}" placeholder="Citt&agrave;">
+	    </div>
+	    
+	     <div class="form-group">
+	        <label for="inputNumeroTelefono">Telefono *</label>
+	        <!--  <input type="text" class="form-control" id="inputCitta" placeholder="Citt&agrave;"> -->
+	        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
+	    </div>
+	    <button type="submit" class="btn btn-primary">Salva Modifice</button>
+	    <button type="reset" class="btn btn-danger">Reset</button>
+	</form>
+</div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Default title for my pages</title>
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+    </head>
+    <body>
+     	<div class="container">
+        	<div th:replace="common-components :: header"></div>
+     	</div>
+     	<div class="col-xs-12" style="height:25px;"></div>
+        <div class="container">
+        	<div layout:fragment="content">Page content goes here</div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.dataTables.min.js"></script>
+        <script src="/js/dataTables.bootstrap4.min.js"></script>
+        <th:block layout:fragment="scripts"></th:block>
+    </body>
+</html>

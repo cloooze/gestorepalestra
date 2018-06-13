@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main-template">
+    <head>
+        <title>Home Page</title>
+    </head>
+    <body>
+        <div class="row" layout:fragment="content">
+        	<a class="btn btn-primary" href="/gestioneUtenti">Gestione Utentii</a>
+        </div>
+    </body>
+    <th:block layout:fragment="scripts">
+        <!--  <script src="/js/hello.js"></script> -->
+    </th:block>
+</html>
