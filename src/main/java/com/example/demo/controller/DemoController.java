@@ -67,11 +67,12 @@ public class DemoController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/updateUtente", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ModelAndView getDettagliUtente(@RequestParam("dettaglioUtente") User user) {
+	@RequestMapping(value = "/updateUtente", method = RequestMethod.POST)
+	public ModelAndView getDettagliUtente(@ModelAttribute("dettaglioUtente") User user) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("showTab", "new");
+		modelAndView.addObject("showTab", "mod");
+		modelAndView.addObject("successMessage", "Modifiche salvata correttamente.");
 		modelAndView.setViewName("gestione_utenti");
 		
 		return modelAndView;

@@ -25,4 +25,10 @@ $(document).ready(function() {
     		}
     	}
     });
+    
+    //Cancella l'alert message al click su un altra sezione del navbar
+    $('.nav-item').click(function() {
+    	console.log('click');
+    	$('.alert').alert('close');
+    });
 } );

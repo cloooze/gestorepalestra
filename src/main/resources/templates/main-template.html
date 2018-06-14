@@ -13,9 +13,11 @@
     <body>
         <div class="container">
         	<div th:replace="common-components :: header"></div>
-     		<div class="col-xs-12" style="height:25px;"></div>
+        	<div class="col-xs-12" style="height:10px;"></div>
+        	<div th:replace="common-components :: alert_message"></div>
+     		<div class="col-xs-12" style="height:10px;"></div>
         	<div layout:fragment="content">Page content goes here</div>
-        	<div class="col-xs-12" style="height:60px;"></div>
+        	<div class="col-xs-12" style="height:30px;"></div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
