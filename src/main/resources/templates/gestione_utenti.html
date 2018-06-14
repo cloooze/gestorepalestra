@@ -10,23 +10,30 @@
         <div layout:fragment="content">
         	<nav>
 			  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-			    <a class="nav-item nav-link active"  id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Nuovo Utente</a>
+			    <a class="nav-item nav-link" 
+			    	th:classappend="${#strings.equalsIgnoreCase(showTab, 'new')} ? active : ''" 
+			    	th:attr="aria-selected=${#strings.equalsIgnoreCase(showTab, 'new')} ? true : false"
+			    	id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" >Nuovo Utente</a>
 			    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Cerca Utente</a>
-			    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Modifica Utente</a>
+			    <a class="nav-item nav-link"
+			    	th:classappend="${#strings.equalsIgnoreCase(showTab, 'mod')} ? active : ''" 
+			    	th:attr="aria-selected=${#strings.equalsIgnoreCase(showTab, 'mod')} ? true : false" 
+			    id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact">Modifica Utente</a>
+			    <div th:text="${showTab}"></div>
 			  </div>
 			</nav>
 			<div class="tab-content" id="nav-tabContent">
-			  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-			  		<div class="col-xs-12" style="height:25px;"></div>
+			  <div class="tab-pane fade" th:classappend="${#strings.equalsIgnoreCase(showTab, 'new')} ? 'show active' : ''" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+			  		<div class="col-xs-12" style="height:10px;"></div>
 			  		<div th:replace="fragments/utente :: nuovo_utente"></div>
 			  </div>
-			  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+			  <div class="tab-pane fade"  id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 			  		<!--  <div th:replace="fragments/utente :: ricerca_utente"></div> -->
-			  		<div class="col-xs-12" style="height:25px;"></div>
+			  		<div class="col-xs-12" style="height:10px;"></div>
 			  		<div th:replace="fragments/utente :: ricerca_utente_risultati"></div>
 			  </div>
-			  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-			  		<div class="col-xs-12" style="height:25px;"></div>
+			  <div class="tab-pane fade" th:classappend="${#strings.equalsIgnoreCase(showTab, 'mod')} ? 'show active' : ''" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+			  		<div class="col-xs-12" style="height:10px;"></div>
 			  		<div th:replace="fragments/utente :: modifica_utente"></div>
 			  </div>
 			</div>

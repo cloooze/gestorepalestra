@@ -44,11 +44,22 @@ public class DemoController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/gestioneUtenti", method = RequestMethod.GET)
+	public ModelAndView gestioneUtenti(@ModelAttribute("utente") User utente) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("showTab", "new");
+		modelAndView.addObject("showNuovoUtenteTab", "yes");
+		modelAndView.setViewName("gestione_utenti");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "/getDettaglioUtente", method = RequestMethod.GET)
 	public ModelAndView getDettagliUtente(@RequestParam("codiceFiscale") String codiceFiscale) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("utente", getUserMock());
+		modelAndView.addObject("showTab", "mod");
+		modelAndView.addObject("dettaglioUtente", getUserMock());
 		modelAndView.setViewName("gestione_utenti");
 		
 		return modelAndView;
@@ -75,6 +86,11 @@ public class DemoController {
 		return new User();
 	}
 	
+	@ModelAttribute("dettaglioUtente")
+	public User getModelDettaglioUtente() {
+		return new User();
+	}
+	
 	@ModelAttribute("allUsers")
 	public List<User> getAllUsers() {
 		List<User> res = new ArrayList<User>();
@@ -84,14 +100,7 @@ public class DemoController {
 		return res;
 	}
 	
-	@RequestMapping(value = "/gestioneUtenti", method = RequestMethod.GET)
-	public ModelAndView gestioneUtenti(@ModelAttribute("utente") User utente) {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		modelAndView.addObject("showNuovoUtenteTab", "yes");
-		modelAndView.setViewName("gestione_utenti");
-		return modelAndView;
-	}
+	
 	
 	
 
