@@ -2,42 +2,55 @@
 	<div class="row">
 		<div class="col-md-9">
 			<form th:object="${utente}">
-			    <div class="form-group">
-			        <label for="inputNome">Nome *</label>
-			        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
-			    </div>
-			    <div class="form-group">
-			        <label for="inputCognome">Cognome *</label>
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+				        <label for="inputNome">Nome *</label>
+				        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
+			        </div>
+			        <div class="form-group col-6">
+				       <label for="inputCognome">Cognome *</label>
 			        <input type="text" class="form-control" id="inputCognome" th:field="*{cognome}" placeholder="Cognome">
+			        </div>
+			    </div>
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+			    		<label for="inputCodiceFiscale">Codice Fiscale *</label>
+			        	<input type="text" class="form-control" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale">
+				        
+				    </div>
+				    <div class="form-group col-6">
+				        <label for="inputEmail">Email *</label>
+				        <input type="email" class="form-control" id="inputEmail" th:field="*{email}" placeholder="Email">
+				    </div>
+			    </div>
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+				        <label for="inputIndirizzo">Indirizzo</label>
+			        	<input type="text" class="form-control" id="inputIndirizzo" th:field="*{indirizzo}" placeholder="Indirizzo">
+				    </div>
+				    <div class="form-group col-6">
+				        <label for="inputCitta">Citt&agrave;</label>
+			        	<input type="text" class="form-control" id="inputCitta" th:field="*{citta}" placeholder="Citt&agrave;">
+				    </div>
+			    </div>
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+				        <label for="inputNumeroTelefono">Telefono *</label>
+				        <!--  <input type="text" class="form-control" id="inputCitta" placeholder="Citt&agrave;"> -->
+				        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
+				    </div>
+				    <div class="col-6">
+				    </div>
 			    </div>
 			    <div class="form-group">
-			        <label for="inputEmail">Email *</label>
-			        <input type="email" class="form-control" id="inputEmail" th:field="*{email}" placeholder="Email">
+				    <button type="submit" class="btn btn-primary">Inserisci</button>
+				    <button type="reset" class="btn btn-danger">Reset</button>
 			    </div>
-			    <div class="form-group">
-			        <label for="inputCodiceFiscale">Codice Fiscale *</label>
-			        <input type="text" class="form-control" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale">
-			    </div>
-			    <div class="form-group">
-			        <label for="inputIndirizzo">Indirizzo</label>
-			        <input type="text" class="form-control" id="inputIndirizzo" th:field="*{indirizzo}" placeholder="Indirizzo">
-			    </div>
-			    <div class="form-group">
-			        <label for="inputCitta">Citt&agrave;</label>
-			        <input type="text" class="form-control" id="inputCitta" th:field="*{citta}" placeholder="Citt&agrave;">
-			    </div>
-			    
-			     <div class="form-group">
-			        <label for="inputNumeroTelefono">Telefono *</label>
-			        <!--  <input type="text" class="form-control" id="inputCitta" placeholder="Citt&agrave;"> -->
-			        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
-			    </div>
-			    <button type="submit" class="btn btn-primary">Inserisci</button>
-			    <button type="reset" class="btn btn-danger">Reset</button>
 			</form>
 		</div>
 		<div class="col-md-3" id="istrutzioni">
-			<!--  colonna vuota per eventuali istruzioni -->
+			<h3>Istruzioni</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</div>
 	</div>
 </div>
@@ -94,44 +107,64 @@
 	            <td>BRGNDR82S08G274S</td>
 	            <td>cloooze@gmail.com</td>
 	            <td>+39 3351051146</td>
-	            <td><a href="/getDettaglioUtente?codiceFiscale=${user.codiceFiscale}" class="btn btn-sm btn-primary">Dettagli</a></td>
+	            <td><a th:href="@{/getDettaglioUtente(codiceFiscale=${user.codiceFiscale})}" class="btn btn-sm btn-primary">Dettagli</a></td>
 	        </tr>
 	</table>
 </div>
 
 <div th:fragment="modifica_utente">
-	<form th:object="${utente}">
-	    <div class="form-group">
-	        <label for="inputNome">Nome *</label>
-	        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
-	    </div>
-	    <div class="form-group">
-	        <label for="inputCognome">Cognome *</label>
-	        <input type="text" class="form-control" id="inputCognome" th:field="*{cognome}" placeholder="Cognome">
-	    </div>
-	    <div class="form-group">
-	        <label for="inputEmail">Email *</label>
-	        <input type="email" class="form-control" id="inputEmail" th:field="*{email}" placeholder="Email">
-	    </div>
-	    <div class="form-group">
-	        <label for="inputCodiceFiscale">Codice Fiscale *</label>
-	        <input type="text" class="form-control" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale" disabled="disabled">
-	    </div>
-	    <div class="form-group">
-	        <label for="inputIndirizzo">Indirizzo</label>
-	        <input type="text" class="form-control" id="inputIndirizzo" th:field="*{indirizzo}" placeholder="Indirizzo">
-	    </div>
-	    <div class="form-group">
-	        <label for="inputCitta">Citt&agrave;</label>
-	        <input type="text" class="form-control" id="inputCitta" th:field="*{citta}" placeholder="Citt&agrave;">
-	    </div>
-	    
-	     <div class="form-group">
-	        <label for="inputNumeroTelefono">Telefono *</label>
-	        <!--  <input type="text" class="form-control" id="inputCitta" placeholder="Citt&agrave;"> -->
-	        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
-	    </div>
-	    <button type="submit" class="btn btn-primary">Salva Modifice</button>
-	    <button type="reset" class="btn btn-danger">Reset</button>
-	</form>
+	<div class="row">
+		<div class="col-md-9">
+			<form th:object="${utente}">
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+				        <label for="inputNome">Nome *</label>
+				        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
+			        </div>
+			        <div class="form-group col-6">
+				       <label for="inputCognome">Cognome *</label>
+			        <input type="text" class="form-control" id="inputCognome" th:field="*{cognome}" placeholder="Cognome">
+			        </div>
+			    </div>
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+			    		<label for="inputCodiceFiscale">Codice Fiscale *</label>
+			        	<input type="text" readonly class="form-control" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale">
+				        
+				    </div>
+				    <div class="form-group col-6">
+				        <label for="inputEmail">Email *</label>
+				        <input type="email" class="form-control" id="inputEmail" th:field="*{email}" placeholder="Email">
+				    </div>
+			    </div>
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+				        <label for="inputIndirizzo">Indirizzo</label>
+			        	<input type="text" class="form-control" id="inputIndirizzo" th:field="*{indirizzo}" placeholder="Indirizzo">
+				    </div>
+				    <div class="form-group col-6">
+				        <label for="inputCitta">Citt&agrave;</label>
+			        	<input type="text" class="form-control" id="inputCitta" th:field="*{citta}" placeholder="Citt&agrave;">
+				    </div>
+			    </div>
+			    <div class="form-row">
+			    	<div class="form-group col-6">
+				        <label for="inputNumeroTelefono">Telefono *</label>
+				        <!--  <input type="text" class="form-control" id="inputCitta" placeholder="Citt&agrave;"> -->
+				        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
+				    </div>
+				    <div class="col-6">
+				    </div>
+			    </div>
+			    <div class="form-group">
+				    <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+				    <button type="reset" class="btn btn-danger">Reset</button>
+			    </div>
+			</form>
+		</div>
+		<div class="col-md-3" id="istrutzioni">
+			<h3>Istruzioni</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
 </div>

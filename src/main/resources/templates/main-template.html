@@ -11,14 +11,12 @@
         <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
     </head>
     <body>
-     	<div class="container">
-        	<div th:replace="common-components :: header"></div>
-     	</div>
-     	<div class="col-xs-12" style="height:25px;"></div>
         <div class="container">
+        	<div th:replace="common-components :: header"></div>
+     		<div class="col-xs-12" style="height:25px;"></div>
         	<div layout:fragment="content">Page content goes here</div>
+        	<div class="col-xs-12" style="height:60px;"></div>
         </div>
-        <div class="col-xs-12" style="height:50px;"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/jquery.dataTables.min.js"></script>
