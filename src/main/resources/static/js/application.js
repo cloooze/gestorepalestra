@@ -26,9 +26,14 @@ $(document).ready(function() {
     	}
     });
     
-    //Cancella l'alert message al click su un altra sezione del navbar
+    //Rimuove alert al cambio di tab
     $('.nav-item').click(function() {
-    	console.log('click');
     	$('.alert').alert('close');
+    });
+    
+    //Rimuove gli errori di validazione dei form al cambio di tab
+    $('.nav-item').on('shown.bs.tab', function(e) {
+    	$('input').removeClass('is-invalid');
+    	$('small.text-danger').remove();
     });
 } );

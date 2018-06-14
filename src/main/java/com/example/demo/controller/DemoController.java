@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,11 +71,28 @@ public class DemoController {
 	}
 	
 	@RequestMapping(value = "/updateUtente", method = RequestMethod.POST)
-	public ModelAndView getDettagliUtente(@ModelAttribute("dettaglioUtente") User user) {
+	public ModelAndView updateUtente(@ModelAttribute("dettaglioUtente") User user) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("showTab", "mod");
 		modelAndView.addObject("successMessage", "Modifiche salvata correttamente.");
+		modelAndView.setViewName("gestione_utenti");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/saveUtente", method = RequestMethod.POST)
+	public ModelAndView saveUtente(@ModelAttribute("utente") @Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if (!bindingResult.hasErrors()) {
+			modelAndView.addObject("successMessage", String.format("Utente %s %s correttamente creato.", user.getNome(), user.getCognome()));
+		} else {
+			modelAndView.addObject("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
+		}
+		
+		modelAndView.addObject("showTab", "new");
+		
 		modelAndView.setViewName("gestione_utenti");
 		
 		return modelAndView;

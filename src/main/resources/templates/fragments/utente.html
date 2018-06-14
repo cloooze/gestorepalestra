@@ -1,7 +1,7 @@
 <div th:fragment="nuovo_utente">
 	<div class="row">
 		<div class="col-md-9">
-			<form th:object="${utente}">
+			<form th:object="${utente}" th:action="@{/saveUtente}" method="POST">
 			    <div class="form-row">
 			    	<div class="form-group col-6">
 				        <label for="inputNome">Nome *</label>
@@ -15,7 +15,8 @@
 			    <div class="form-row">
 			    	<div class="form-group col-6">
 			    		<label for="inputCodiceFiscale">Codice Fiscale *</label>
-			        	<input type="text" class="form-control" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale">
+			        	<input type="text" class="form-control" th:classappend="${#fields.hasErrors('codiceFiscale')} ? is-invalid" id="inputCodiceFiscale" th:field="*{codiceFiscale}" placeholder="Codice Fiscale">
+			        	<small class="text-danger" th:if="${#fields.hasErrors('codiceFiscale')}" th:errors="*{codiceFiscale}">Incorrect date</small>
 				        
 				    </div>
 				    <div class="form-group col-6">

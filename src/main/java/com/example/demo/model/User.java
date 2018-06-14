@@ -4,10 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
 	
+	@NotNull
+	@NotEmpty
 	private String codiceFiscale;
 	@Id
 	private String idIscrizione;
