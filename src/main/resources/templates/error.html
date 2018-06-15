@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="error-template">
+    <head>
+        <title>Home Page</title>
+    </head>
+    <body>
+    <div layout:fragment="content">
+		<div class="alert alert-danger fade show" role="alert">
+			<span>Si &egrave; verificato un errore imprevisto nell'applicazione. Riprovare in un secondo momento.</span>
+		</div>
+	</div>
+    </body>
+    <th:block layout:fragment="scripts">
+        <!--  <script src="/js/hello.js"></script> -->
+    </th:block>
+</html>
