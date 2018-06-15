@@ -36,4 +36,8 @@ $(document).ready(function() {
     	$('input').removeClass('is-invalid');
     	$('small.text-danger').remove();
     });
+    
+    $('#generaIdTessera').click(function(e) {
+    	$('#inputIdTessera').val('666');
+    });
 } );
