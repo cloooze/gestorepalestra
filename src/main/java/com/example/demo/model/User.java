@@ -2,25 +2,46 @@ package com.example.demo.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "UTENTE")
 public class User {
 	
 	@NotNull
 	@NotEmpty
-	private String codiceFiscale;
 	@Id
-	private String idIscrizione;
+	@Column(name = "CODICE_FISCALE")
+	private String codiceFiscale;
+	
+	@Column(name = "ID_TESSERA")
+	private Long idTessera;
+	
+	@Column(name = "NOME")
 	private String nome;
+	
+	@Column(name = "COGNOME")
 	private String cognome;
+	
+	@Column(name = "EMAIL")
 	private String email;
+	
+	@Column(name = "INDIR")
 	private String indirizzo;
+	
+	@Column(name = "CITTA")
 	private String citta;
+	
+	@Column(name = "TELEFONO")
 	private String numeroTelefono;
+	
+	@Transient
 	private Date dataNascita;
 	
 	public String getCodiceFiscale() {
@@ -29,11 +50,11 @@ public class User {
 	public void setCodiceFiscale(String codiceFiscale) {
 		this.codiceFiscale = codiceFiscale;
 	}
-	public String getIdIscrizione() {
-		return idIscrizione;
+	public Long getIdTessera() {
+		return idTessera;
 	}
-	public void setIdIscrizione(String idIscrizione) {
-		this.idIscrizione = idIscrizione;
+	public void setIdTessera(Long idTessera) {
+		this.idTessera = idTessera;
 	}
 	public String getNome() {
 		return nome;

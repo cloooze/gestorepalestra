@@ -1,21 +1,19 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.DateUtils;
 
@@ -82,17 +80,20 @@ public class DemoController {
 	}
 	
 	@RequestMapping(value = "/saveUtente", method = RequestMethod.POST)
-	public ModelAndView saveUtente(@ModelAttribute("utente") @Valid User user, BindingResult bindingResult) {
+	public ModelAndView saveUtente(@ModelAttribute("utente") @Valid User user, BindingResult bindingResult, SessionStatus sessionStatus) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if (!bindingResult.hasErrors()) {
-			modelAndView.addObject("successMessage", String.format("Utente %s %s correttamente creato.", user.getNome(), user.getCognome()));
+			User res = userService.save(user);
+			sessionStatus.setComplete();
+			
+			modelAndView.addObject("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
 		} else {
 			modelAndView.addObject("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
 		}
 		
 		modelAndView.addObject("showTab", "new");
-		
+		modelAndView.addObject("utente", new User());
 		modelAndView.setViewName("gestione_utenti");
 		
 		return modelAndView;
@@ -111,10 +112,22 @@ public class DemoController {
 		user.setDataNascita(DateUtils.create("1982", "11", "08").getTime());
 		user.setNumeroTelefono("3351051146");
 		user.setIndirizzo("Vicolo del duomo 5");
-		user.setIdIscrizione("1");
+		user.setIdTessera(Long.getLong("1"));
 		
 		return user;
 	}
+	
+	@RequestMapping(value = "/aggiornaListaUtenti", method = RequestMethod.GET)
+	public ModelAndView aggiornaListaUtenti() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("showTab", "ric");
+		modelAndView.addObject("successMessage", "Aggiornamento completato.");
+		modelAndView.setViewName("gestione_utenti");
+		
+		return modelAndView;
+	}
+	
 	
 	@ModelAttribute("utente")
 	public User getModelUtente() {
@@ -128,11 +141,7 @@ public class DemoController {
 	
 	@ModelAttribute("allUsers")
 	public List<User> getAllUsers() {
-		List<User> res = new ArrayList<User>();
-		for (int i = 0; i < 500; i++) {
-			res.add(getUserMock());
-		}
-		return res;
+		return userService.findAll();
 	}
 	
 	
