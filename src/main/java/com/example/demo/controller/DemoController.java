@@ -156,8 +156,8 @@ public class DemoController {
 	
 	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)
 	@ResponseBody
-	public String getFirstAvailableIdTessera() {
-		return Long.toString(userService.getFirstAvailableIdTessera());
+	public Long getFirstAvailableIdTessera() {
+		return userService.getFirstAvailableIdTessera();
 	}
 	
 	
