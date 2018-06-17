@@ -11,6 +11,12 @@ public interface UserService {
 	
 	public User save(User user);
 	
+	public Optional<User> findByCodiceFiscale(String codiceFiscale);
+	
+	public Optional<User> update(User user);
+	
 	public List<User> findAll();
+	
+	public Long getFirstAvailableIdTessera();
 
 }

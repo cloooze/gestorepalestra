@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,10 @@ import com.example.demo.service.UserService;
 @Controller
 @SessionAttributes("allUsers")
 public class DemoController {
+	
+	private static final String TAB_NEW = "new";
+	private static final String TAB_RIC = "ric";
+	private static final String TAB_MOD = "mod";
 	
 	@Autowired
 	UserService userService;
@@ -51,8 +56,7 @@ public class DemoController {
 	public ModelAndView gestioneUtenti(@ModelAttribute("utente") User utente) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("showTab", "new");
-		modelAndView.addObject("showNuovoUtenteTab", "yes");
+		modelAndView.addObject("showTab", TAB_NEW);
 		modelAndView.setViewName("gestione_utenti");
 		return modelAndView;
 	}
@@ -61,19 +65,26 @@ public class DemoController {
 	public ModelAndView getDettagliUtente(@RequestParam("codiceFiscale") String codiceFiscale) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("showTab", "mod");
-		modelAndView.addObject("dettaglioUtente", getUserMock());
+		Optional<User> res = userService.findByCodiceFiscale(codiceFiscale);
+		
+		modelAndView.addObject("dettaglioUtente", res.get());
+		modelAndView.addObject("showTab", TAB_MOD);
 		modelAndView.setViewName("gestione_utenti");
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/updateUtente", method = RequestMethod.POST)
-	public ModelAndView updateUtente(@ModelAttribute("dettaglioUtente") User user) {
+	public ModelAndView updateUtente(@ModelAttribute("dettaglioUtente") User user, SessionStatus sessionStatus) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("showTab", "mod");
+		userService.save(user);
+		
 		modelAndView.addObject("successMessage", "Modifiche salvata correttamente.");
+		modelAndView.addObject("dettaglioUtente", new User());
+		sessionStatus.setComplete();
+		
+		modelAndView.addObject("showTab", TAB_MOD);
 		modelAndView.setViewName("gestione_utenti");
 		
 		return modelAndView;
@@ -86,14 +97,13 @@ public class DemoController {
 		if (!bindingResult.hasErrors()) {
 			User res = userService.save(user);
 			sessionStatus.setComplete();
-			
+			modelAndView.addObject("utente", new User());
 			modelAndView.addObject("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
 		} else {
 			modelAndView.addObject("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
 		}
 		
-		modelAndView.addObject("showTab", "new");
-		modelAndView.addObject("utente", new User());
+		modelAndView.addObject("showTab", TAB_NEW);
 		modelAndView.setViewName("gestione_utenti");
 		
 		return modelAndView;
@@ -121,7 +131,7 @@ public class DemoController {
 	public ModelAndView aggiornaListaUtenti() {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("showTab", "ric");
+		modelAndView.addObject("showTab", TAB_RIC);
 		modelAndView.addObject("successMessage", "Aggiornamento completato.");
 		modelAndView.setViewName("gestione_utenti");
 		
@@ -142,6 +152,12 @@ public class DemoController {
 	@ModelAttribute("allUsers")
 	public List<User> getAllUsers() {
 		return userService.findAll();
+	}
+	
+	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)
+	@ResponseBody
+	public String getFirstAvailableIdTessera() {
+		return Long.toString(userService.getFirstAvailableIdTessera());
 	}
 	
 	

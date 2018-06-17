@@ -9,8 +9,8 @@
 				        	 <div class="col-6">
 					        	<input type="text" class="form-control" id="inputIdTessera" th:field="*{idTessera}" placeholder="# Tessera">
 					        </div>
-					         <div class="col-3">
-					        	<a class="btn btn-sm btn-outline-primary form-control" id="generaIdTessera" href="#">Genera</a>
+					         <div class="col-4">
+					        	<button type="button" class="btn btn-sm btn-outline-primary form-control" id="generaIdTessera">Genera</button>
 					        </div>
 				        </div>
 			        </div>
@@ -124,9 +124,9 @@
 	    <tbody>
 	    	<tr th:each="user : ${allUsers}">
 	            <td th:text="${user.idTessera}"></td>
-	            <td th:text="${user.nome}">Andrea</td>
-	            <td th:text="${user.cognome}">Braghese</td>
-	            <td th:text="${user.codiceFiscale}">BRGNDR82S08G274S</td>
+	            <td th:text="${#strings.capitalize(user.nome)}">Nome</td>
+	            <td th:text="${#strings.capitalize(user.cognome)}">Cognome</td>
+	            <td th:text="${#strings.toUpperCase(user.codiceFiscale)}">BRGNDR82S08G274S</td>
 	            <td th:text="${user.email}">cloooze@gmail.com</td>
 	            <td th:text="${user.numeroTelefono}">+39 3351051146</td>
 	            <td><a th:href="@{/getDettaglioUtente(codiceFiscale=${user.codiceFiscale})}" class="btn btn-sm btn-outline-primary">Dettagli</a></td>

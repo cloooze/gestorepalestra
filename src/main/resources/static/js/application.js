@@ -38,6 +38,9 @@ $(document).ready(function() {
     });
     
     $('#generaIdTessera').click(function(e) {
-    	$('#inputIdTessera').val('666');
+    	$.ajax({url: "/getFirstAvailableIdTessera", success: function(result){
+    		$('#inputIdTessera').val(result);
+        }});
+    	
     });
 } );
