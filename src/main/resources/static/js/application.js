@@ -41,14 +41,6 @@ $(document).ready(function() {
     	$.ajax({url: "/getFirstAvailableIdTessera", success: function(result){
     		$('#inputIdTessera').val(result);
         }});
-    	
     });
     
-    $('#elimina_utente_btn').click(function(e) {
-    	var codiceFiscale = $('#form_modifica_utente').find('#inputCodiceFiscale').val();
-    	$.ajax({url: "/deleteUser?codiceFiscale=" + codiceFiscale, success: function(result){
-    		$('#eliminaUtenteModal').modal('hide');
-    		location.reload(true)
-        }});
-    });
 } );

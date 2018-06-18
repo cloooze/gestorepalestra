@@ -28,11 +28,11 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				Confermi di voler eliminare l'utente? L'operazione non &egrave; reversibile.
+				<strong>ATTENZIONE!</strong> Si &egrave; richiesto di voler eliminare l'utente, questa operazione non &egrave; reversibile. Continuare?
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
-				<button id="elimina_utente_btn" type="button" class="btn btn-danger">Conferma</button>
+				<a class="btn btn-danger" href="#" th:href="@{/deleteUser(codiceFiscale=*{codiceFiscale})}">Conferma</a>
 			</div>
 		</div>
 	</div>

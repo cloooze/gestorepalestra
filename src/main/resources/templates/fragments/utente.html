@@ -129,7 +129,7 @@
 	            <td th:text="${user.codiceFiscale}">BRGNDR82S08G274S</td>
 	            <td th:text="${user.email}">cloooze@gmail.com</td>
 	            <td th:text="${user.numeroTelefono}">+39 3351051146</td>
-	            <td><a th:href="@{/getDettaglioUtente(codiceFiscale=${user.codiceFiscale})}" class="btn btn-sm btn-outline-primary">Dettagli</a></td>
+	            <td><a id="dettaglioUtente" th:href="@{/getDettaglioUtente(codiceFiscale=${user.codiceFiscale})}" class="btn btn-sm btn-outline-primary">Dettagli</a></td>
 	        </tr>
 	</table>
 </div>
@@ -176,11 +176,12 @@
 				        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
 				    </div>
 				    <div class="col-6">
+				    	<input type="hidden" th:field="*{idTessera}" id="inputIdTessera">
 				    </div>
 			    </div>
 			    <div class="form-group">
 				    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modificaUtenteModal">Salva Modifiche</button>
-				    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminaUtenteModal">Elimina Utente</button>
+				    <a class="btn btn-danger" th:classappend="*{codiceFiscale} ? '' : disabled" data-toggle="modal" href="#eliminaUtenteModal" disabled>Elimina</a>
 			    </div>
 				<div th:replace="fragments/modals :: modal_modificaUtente"></div>
 				<div th:replace="fragments/modals :: modal_eliminaUtente"></div>

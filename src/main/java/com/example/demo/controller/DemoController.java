@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -162,11 +163,13 @@ public class DemoController {
 	}
 	
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
-	public ModelAndView deleteUser(@RequestParam String codiceFiscale, SessionStatus sessionStatus) {
+	public ModelAndView deleteUser(@RequestParam(name = "codiceFiscale", required = true) String codiceFiscale, SessionStatus sessionStatus) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		userService.deleteUserByCodiceFiscale(codiceFiscale);
-		sessionStatus.setComplete();
+		if (!StringUtils.isEmpty(codiceFiscale)) {
+			userService.deleteUserByCodiceFiscale(codiceFiscale);
+			sessionStatus.setComplete();
+		}
 		
 		modelAndView.addObject("showTab", TAB_MOD);
 		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
