@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -160,8 +161,17 @@ public class DemoController {
 		return userService.getFirstAvailableIdTessera();
 	}
 	
-	
-	
-	
-
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+	public ModelAndView deleteUser(@RequestParam String codiceFiscale, SessionStatus sessionStatus) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		userService.deleteUserByCodiceFiscale(codiceFiscale);
+		sessionStatus.setComplete();
+		
+		modelAndView.addObject("showTab", TAB_MOD);
+		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
+		modelAndView.setViewName("gestione_utenti");
+		
+		return modelAndView;
+	}
 }

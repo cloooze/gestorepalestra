@@ -17,3 +17,23 @@
 		</div>
 	</div>
 </div>
+
+<div th:fragment="modal_eliminaUtente" class="modal fade" id="eliminaUtenteModal" tabindex="-1" role="dialog" aria-labelledby="eliminaUtenteModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="eliminaUtenteModalLabel">Elimina utente</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				Confermi di voler eliminare l'utente? L'operazione non &egrave; reversibile.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+				<button id="elimina_utente_btn" type="button" class="btn btn-danger">Conferma</button>
+			</div>
+		</div>
+	</div>
+</div>

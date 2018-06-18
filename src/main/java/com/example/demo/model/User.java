@@ -33,7 +33,7 @@ public class User {
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@Column(name = "INDIR")
+	@Column(name = "INDIRIZZO")
 	private String indirizzo;
 	
 	@Column(name = "CITTA")
