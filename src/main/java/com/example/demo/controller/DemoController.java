@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -82,7 +83,7 @@ public class DemoController {
 		
 		userService.save(user);
 		
-		modelAndView.addObject("successMessage", "Modifiche salvata correttamente.");
+		modelAndView.addObject("successMessage", "Modifiche salvate correttamente.");
 		modelAndView.addObject("dettaglioUtente", new User());
 		sessionStatus.setComplete();
 		
@@ -93,73 +94,19 @@ public class DemoController {
 	}
 	
 	@RequestMapping(value = "/saveUtente", method = RequestMethod.POST)
-	public ModelAndView saveUtente(@ModelAttribute("utente") @Valid User user, BindingResult bindingResult, SessionStatus sessionStatus) {
-		ModelAndView modelAndView = new ModelAndView();
-		
+	public String saveUtente(@ModelAttribute("utente") @Valid User user, BindingResult bindingResult, SessionStatus sessionStatus, Model model) {
 		if (!bindingResult.hasErrors()) {
 			User res = userService.save(user);
 			sessionStatus.setComplete();
-			modelAndView.addObject("utente", new User());
-			modelAndView.addObject("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
+			model.addAttribute("utente", new User());
+			model.addAttribute("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
 		} else {
-			modelAndView.addObject("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
+			model.addAttribute("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
 		}
 		
-		modelAndView.addObject("showTab", TAB_NEW);
-		modelAndView.setViewName("gestione_utenti");
+		model.addAttribute("showTab", TAB_NEW);
 		
-		return modelAndView;
-	}
-	
-	
-	
-//	@RequestMapping(value = "/getUserMock", method = RequestMethod.GET)
-	public User getUserMock() {
-		User user = new User();
-		user.setCitta("Roma");
-		user.setEmail("cloooze@gmail.com");
-		user.setCodiceFiscale("BRGNDR82S08G274S");
-		user.setCognome("Braghese");
-		user.setNome("Andrea");
-		user.setDataNascita(DateUtils.create("1982", "11", "08").getTime());
-		user.setNumeroTelefono("3351051146");
-		user.setIndirizzo("Vicolo del duomo 5");
-		user.setIdTessera(Long.getLong("1"));
-		
-		return user;
-	}
-	
-	@RequestMapping(value = "/aggiornaListaUtenti", method = RequestMethod.GET)
-	public ModelAndView aggiornaListaUtenti() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		modelAndView.addObject("showTab", TAB_RIC);
-		modelAndView.addObject("successMessage", "Aggiornamento completato.");
-		modelAndView.setViewName("gestione_utenti");
-		
-		return modelAndView;
-	}
-	
-	
-	@ModelAttribute("utente")
-	public User getModelUtente() {
-		return new User();
-	}
-	
-	@ModelAttribute("dettaglioUtente")
-	public User getModelDettaglioUtente() {
-		return new User();
-	}
-	
-	@ModelAttribute("allUsers")
-	public List<User> getAllUsers() {
-		return userService.findAll();
-	}
-	
-	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)
-	@ResponseBody
-	public Long getFirstAvailableIdTessera() {
-		return userService.getFirstAvailableIdTessera();
+		return "gestione_utenti";
 	}
 	
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
@@ -177,4 +124,37 @@ public class DemoController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)
+	@ResponseBody
+	public Long getFirstAvailableIdTessera() {
+		return userService.getFirstAvailableIdTessera();
+	}
+	
+	@RequestMapping(value = "/aggiornaListaUtenti", method = RequestMethod.GET)
+	public ModelAndView aggiornaListaUtenti() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("showTab", TAB_RIC);
+		modelAndView.addObject("successMessage", "Aggiornamento completato.");
+		modelAndView.setViewName("gestione_utenti");
+		
+		return modelAndView;
+	}
+	
+	@ModelAttribute("utente")
+	public User getModelUtente() {
+		return new User();
+	}
+	
+	@ModelAttribute("dettaglioUtente")
+	public User getModelDettaglioUtente() {
+		return new User();
+	}
+	
+	@ModelAttribute("allUsers")
+	public List<User> getAllUsers() {
+		return userService.findAll();
+	}
+	
 }
