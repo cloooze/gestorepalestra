@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,13 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.DateUtils;
 
+import com.example.demo.config.WebConfig;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
 @Controller
 @SessionAttributes("allUsers")
-public class DemoController {
+public class DemoController extends AbstractController {
 	
 	private static final String TAB_NEW = "new";
 	private static final String TAB_RIC = "ric";
@@ -31,6 +34,9 @@ public class DemoController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	WebConfig webconfig;
 	
 	@RequestMapping(value = "/home",  method = RequestMethod.GET)
 	public ModelAndView get() {
@@ -159,6 +165,35 @@ public class DemoController {
 	public Long getFirstAvailableIdTessera() {
 		return userService.getFirstAvailableIdTessera();
 	}
+	
+	@RequestMapping(value = "/getLotOfUsers", method = RequestMethod.GET)
+	public @ResponseBody List<User> demo(HttpSession session) {
+		System.out.println("inizio getLotOfUsers");
+		
+		List<User> resSess = (List<User>) session.getAttribute("res");
+		if ( resSess != null)
+			return resSess;
+		
+		User user = null;
+		
+		List<User> res = new ArrayList<User>();
+		
+		for (int i = 0; i < 100000; i++) {
+			user = new User();
+			user.setNome(Integer.toString(i));
+			user.setCognome(Integer.toString(i++));
+			user.setCodiceFiscale(Integer.toString(i++));
+			user.setEmail(Integer.toString(i++));
+			res.add(user);
+		}System.out.println("fine getLotOfUsers");
+		
+		
+		session.setAttribute("res", res);
+		
+		return res;
+	}
+	
+	
 	
 	
 	
