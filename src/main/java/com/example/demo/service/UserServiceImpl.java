@@ -59,4 +59,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(codiceFiscale);
 	}
 
+	@Override
+	public void deleteUserByCodiceFiscale(String codiceFiscale) {
+		userRepository.deleteById(codiceFiscale);
+	}
+
 }

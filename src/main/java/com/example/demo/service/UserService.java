@@ -18,5 +18,7 @@ public interface UserService {
 	public List<User> findAll();
 	
 	public Long getFirstAvailableIdTessera();
+	
+	public void deleteUserByCodiceFiscale(String codiceFiscale);
 
 }

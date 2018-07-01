@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -166,37 +168,19 @@ public class DemoController extends AbstractController {
 		return userService.getFirstAvailableIdTessera();
 	}
 	
-	@RequestMapping(value = "/getLotOfUsers", method = RequestMethod.GET)
-	public @ResponseBody List<User> demo(HttpSession session) {
-		System.out.println("inizio getLotOfUsers");
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+	public ModelAndView deleteUser(@RequestParam(name = "codiceFiscale", required = true) String codiceFiscale, SessionStatus sessionStatus) {
+		ModelAndView modelAndView = new ModelAndView();
 		
-		List<User> resSess = (List<User>) session.getAttribute("res");
-		if ( resSess != null)
-			return resSess;
+		if (!StringUtils.isEmpty(codiceFiscale)) {
+			userService.deleteUserByCodiceFiscale(codiceFiscale);
+			sessionStatus.setComplete();
+		}
 		
-		User user = null;
+		modelAndView.addObject("showTab", TAB_MOD);
+		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
+		modelAndView.setViewName("gestione_utenti");
 		
-		List<User> res = new ArrayList<User>();
-		
-		for (int i = 0; i < 100000; i++) {
-			user = new User();
-			user.setNome(Integer.toString(i));
-			user.setCognome(Integer.toString(i++));
-			user.setCodiceFiscale(Integer.toString(i++));
-			user.setEmail(Integer.toString(i++));
-			res.add(user);
-		}System.out.println("fine getLotOfUsers");
-		
-		
-		session.setAttribute("res", res);
-		
-		return res;
+		return modelAndView;
 	}
-	
-	
-	
-	
-	
-	
-
 }

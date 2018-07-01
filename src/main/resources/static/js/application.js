@@ -68,6 +68,6 @@ $(document).ready(function() {
     	$.ajax({url: "/getFirstAvailableIdTessera", success: function(result){
     		$('#inputIdTessera').val(result);
         }});
-    	
     });
+    
 } );

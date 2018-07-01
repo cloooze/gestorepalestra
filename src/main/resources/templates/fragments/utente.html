@@ -1,7 +1,7 @@
 <div th:fragment="nuovo_utente">
 	<div class="row">
 		<div class="col-md-9">
-			<form th:object="${utente}" th:action="@{/saveUtente}" method="POST">
+			<form th:object="${utente}" th:action="@{/saveUtente}" method="POST" id="form_nuovo_utente">
 				<div class="form-row">
 					<div class="form-group col-4">
 				        <label for="inputIdTessera"># Tessera *</label>
@@ -126,12 +126,12 @@
 	    <tbody>
 	    	<tr th:each="user : ${allUsers}">
 	            <td th:text="${user.idTessera}"></td>
-	            <td th:text="${#strings.capitalize(user.nome)}">Nome</td>
-	            <td th:text="${#strings.capitalize(user.cognome)}">Cognome</td>
-	            <td th:text="${#strings.toUpperCase(user.codiceFiscale)}">BRGNDR82S08G274S</td>
+	            <td th:text="${user.nome}">Andrea</td>
+	            <td th:text="${user.cognome}">Braghese</td>
+	            <td th:text="${user.codiceFiscale}">BRGNDR82S08G274S</td>
 	            <td th:text="${user.email}">cloooze@gmail.com</td>
 	            <td th:text="${user.numeroTelefono}">+39 3351051146</td>
-	            <td><a th:href="@{/getDettaglioUtente(codiceFiscale=${user.codiceFiscale})}" class="btn btn-sm btn-outline-primary">Dettagli</a></td>
+	            <td><a id="dettaglioUtente" th:href="@{/getDettaglioUtente(codiceFiscale=${user.codiceFiscale})}" class="btn btn-sm btn-outline-primary">Dettagli</a></td>
 	        </tr>
 	</table>
 </div>
@@ -139,7 +139,7 @@
 <div th:fragment="modifica_utente">
 	<div class="row">
 		<div class="col-md-9">
-			<form th:object="${dettaglioUtente}" th:action="@{/updateUtente}" method="POST">
+			<form th:object="${dettaglioUtente}" th:action="@{/updateUtente}" method="POST" id="form_modifica_utente">
 			    <div class="form-row">
 			    	<div class="form-group col-6">
 				        <label for="inputNome">Nome *</label>
@@ -178,12 +178,15 @@
 				        <input type="text" class="form-control input-medium bfh-phone" data-format="+39 ddd ddddddd" th:field="*{numeroTelefono}" id="inputNumeroTelefono" placeholder="Telefono">
 				    </div>
 				    <div class="col-6">
+				    	<input type="hidden" th:field="*{idTessera}" id="inputIdTessera">
 				    </div>
 			    </div>
 			    <div class="form-group">
-				    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modificaUtenteModal"><i class="fas fa-plus"></i>&nbsp;Salva Modifiche</button>
+				    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modificaUtenteModal">Salva Modifiche</button>
+				    <a class="btn btn-danger" th:classappend="*{codiceFiscale} ? '' : disabled" data-toggle="modal" href="#eliminaUtenteModal" disabled>Elimina</a>
 			    </div>
 				<div th:replace="fragments/modals :: modal_modificaUtente"></div>
+				<div th:replace="fragments/modals :: modal_eliminaUtente"></div>
 			</form>
 			<form>
 				<a class="btn btn-sm btn-danger" href="#" th:href="@{deleteUser}"><i class="far fa-trash-alt"></i>&nbsp;Elimina</a>
