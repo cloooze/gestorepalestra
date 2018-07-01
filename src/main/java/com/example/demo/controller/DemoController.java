@@ -1,15 +1,13 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -99,22 +97,24 @@ public class DemoController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/saveUtente", method = RequestMethod.POST)
-	public ModelAndView saveUtente(@ModelAttribute("utente") @Valid User user, BindingResult bindingResult, SessionStatus sessionStatus) {
-		ModelAndView modelAndView = new ModelAndView();
+	public String saveUtente(Model model, @ModelAttribute("utente") @Valid User user, BindingResult bindingResult, SessionStatus sessionStatus) {
 		
 		if (!bindingResult.hasErrors()) {
-			User res = userService.save(user);
-			sessionStatus.setComplete();
-			modelAndView.addObject("utente", new User());
-			modelAndView.addObject("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
+			if (userService.findByCodiceFiscale(user.getCodiceFiscale()).isPresent()) {
+				model.addAttribute("errorMessage", String.format("Utente già presente."));
+			} else {
+				User res = userService.save(user);
+				sessionStatus.setComplete();
+				model.addAttribute("utente", new User());
+				model.addAttribute("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
+			}
 		} else {
-			modelAndView.addObject("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
+			model.addAttribute("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
 		}
 		
-		modelAndView.addObject("showTab", TAB_NEW);
-		modelAndView.setViewName("gestione_utenti");
+		model.addAttribute("showTab", TAB_NEW);
 		
-		return modelAndView;
+		return "gestione_utenti";
 	}
 	
 	

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-    $('#example').DataTable({
+    var table = $('#example').DataTable({
     	"language": {
     		"sEmptyTable":     "Nessun dato presente nella tabella",
     		"sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
     
     //esempio di table generata tramite chiamata ajax (non piu utilizzato)
-   var table =  $('#test').DataTable({
+   var t =  $('#test').DataTable({
     	"deferRender": true,
     	"ajax": {
     		"serverSide":"true",
