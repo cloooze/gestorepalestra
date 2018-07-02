@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -21,12 +20,13 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.DateUtils;
 
+import com.example.demo.config.WebConfig;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
 @Controller
 @SessionAttributes("allUsers")
-public class DemoController {
+public class DemoController extends AbstractController {
 	
 	private static final String TAB_NEW = "new";
 	private static final String TAB_RIC = "ric";
@@ -34,6 +34,9 @@ public class DemoController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	WebConfig webconfig;
 	
 	@RequestMapping(value = "/home",  method = RequestMethod.GET)
 	public ModelAndView get() {
@@ -94,18 +97,22 @@ public class DemoController {
 	}
 	
 	@RequestMapping(value = "/saveUtente", method = RequestMethod.POST)
-	public String saveUtente(@ModelAttribute("utente") @Valid User user, BindingResult bindingResult, SessionStatus sessionStatus, Model model) {
+	public String saveUtente(Model model, @ModelAttribute("utente") @Valid User user, BindingResult bindingResult, SessionStatus sessionStatus) {
+		
 		if (!bindingResult.hasErrors()) {
-			User res = userService.save(user);
-			sessionStatus.setComplete();
-			model.addAttribute("utente", new User());
-			model.addAttribute("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
+			if (userService.findByCodiceFiscale(user.getCodiceFiscale()).isPresent()) {
+				model.addAttribute("errorMessage", String.format("Utente già presente."));
+			} else {
+				User res = userService.save(user);
+				sessionStatus.setComplete();
+				model.addAttribute("utente", new User());
+				model.addAttribute("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
+			}
 		} else {
 			model.addAttribute("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
 		}
 		
 		model.addAttribute("showTab", TAB_NEW);
-		
 		return "gestione_utenti";
 	}
 	
@@ -122,7 +129,7 @@ public class DemoController {
 		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
 		modelAndView.setViewName("gestione_utenti");
 		
-		return modelAndView;
+		return "gestione_utenti";
 	}
 	
 	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)

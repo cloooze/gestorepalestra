@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-    $('#example').DataTable({
+    var table = $('#example').DataTable({
     	"language": {
     		"sEmptyTable":     "Nessun dato presente nella tabella",
     		"sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
@@ -25,6 +25,33 @@ $(document).ready(function() {
     		}
     	}
     });
+    
+    //esempio di table generata tramite chiamata ajax (non piu utilizzato)
+   var t =  $('#test').DataTable({
+    	"deferRender": true,
+    	"ajax": {
+    		"serverSide":"true",
+    		"url": '/getLotOfUsers',
+    	    "dataSrc": ""
+
+    	},
+    	"columns": [
+    		{"data": "nome"},
+    		{"data": "cognome"},
+    		{"data": "email"},
+    		{"data": "codiceFiscale"},
+    		{"defaultContent": "<button type=\"button\" class=\"btn btn-primary\">Click!</button>"}
+    		
+    	]
+    });
+   
+   
+    
+    $('#test tbody').on( 'click', 'button', function () {
+        var d = table.row( $(this).parents('tr') ).data();
+        alert( 'codicefiscale: ' + d.codiceFiscale);
+        window.location.href = 'http://google.com';
+    } );
     
     //Rimuove alert al cambio di tab
     $('.nav-item').click(function() {

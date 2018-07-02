@@ -9,17 +9,21 @@
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/bootstrap-grid.min.css">
         <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="/css/sticky-footer.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     </head>
     <body style="background-color:#eee">
-        <div class="container rounded" style="padding:20px;min-height: 768px; max-heaght:100%; background-color:white">
+        <div class="container rounded" style="padding:20px;min-height: 768px; max-height:100%; background-color:white">
         	<div th:replace="common-components :: header"></div>
-        	<!--  <div class="col-xs-12" style="height:10px;"></div> -->
         	<hr>
         	<div th:replace="common-components :: alert_message"></div>
      		<div class="col-xs-12" style="height:10px;"></div>
         	<div layout:fragment="content">Page content goes here</div>
         	<div class="col-xs-12" style="height:30px;"></div>
+        	
         </div>
+        <div th:replace="common-components :: footer"></div>
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/jquery.dataTables.min.js"></script>
