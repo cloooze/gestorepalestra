@@ -182,8 +182,8 @@
 				    </div>
 			    </div>
 			    <div class="form-group">
-				    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modificaUtenteModal">Salva Modifiche</button>
-				    <a class="btn btn-danger" th:classappend="*{codiceFiscale} ? '' : disabled" data-toggle="modal" href="#eliminaUtenteModal" disabled><i class="far fa-trash-alt"></i>&nbsp;Elimina</a>
+				    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modificaUtenteModal"><i class="fas fa-plus"></i>&nbsp;Salva Modifiche</button>
+				    <a class="btn btn-sm btn-danger" th:classappend="*{codiceFiscale} ? '' : disabled" data-toggle="modal" href="#eliminaUtenteModal" disabled><i class="far fa-trash-alt"></i>&nbsp;Elimina</a>
 			    </div>
 				<div th:replace="fragments/modals :: modal_modificaUtente"></div>
 				<div th:replace="fragments/modals :: modal_eliminaUtente"></div>

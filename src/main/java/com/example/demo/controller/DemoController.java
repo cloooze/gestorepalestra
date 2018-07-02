@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.util.DateUtils;
 
 import com.example.demo.config.WebConfig;
 import com.example.demo.model.User;
@@ -37,6 +37,8 @@ public class DemoController extends AbstractController {
 	
 	@Autowired
 	WebConfig webconfig;
+	
+	MessageSource messageSource;
 	
 	@RequestMapping(value = "/home",  method = RequestMethod.GET)
 	public ModelAndView get() {
@@ -109,7 +111,8 @@ public class DemoController extends AbstractController {
 				model.addAttribute("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
 			}
 		} else {
-			model.addAttribute("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
+			model.addAttribute("errorMessage", "Ci sono errori nel form, ricontrollare.");
+//			model.addAttribute("errorMessage", messageSource.getMessage("user.save.error", null, null));
 		}
 		
 		model.addAttribute("showTab", TAB_NEW);
@@ -129,7 +132,7 @@ public class DemoController extends AbstractController {
 		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
 		modelAndView.setViewName("gestione_utenti");
 		
-		return "gestione_utenti";
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)

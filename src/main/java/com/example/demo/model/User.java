@@ -20,7 +20,7 @@ import org.springframework.format.annotation.NumberFormat;
 public class User {
 	
 	@NotNull
-	@NotEmpty
+	@NotEmpty(message = "{validation.user.codiceFiscale}")
 	@Id
 	@Column(name = "CODICE_FISCALE")
 	private String codiceFiscale;
@@ -52,6 +52,7 @@ public class User {
 	private String citta;
 	
 	@NotNull
+	@NotEmpty(message = "{validation.user.numeroTelefono}")
 	@Pattern(regexp="(^$|[0-9]{10})", message = "{validation.user.numeroTelefono}")
 	@Column(name = "TELEFONO")
 	private String numeroTelefono;
