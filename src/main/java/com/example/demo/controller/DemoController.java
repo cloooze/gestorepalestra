@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.DateUtils;
 
 import com.example.demo.config.WebConfig;
@@ -169,7 +170,7 @@ public class DemoController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
-	public ModelAndView deleteUser(@RequestParam(name = "codiceFiscale", required = true) String codiceFiscale, SessionStatus sessionStatus) {
+	public ModelAndView deleteUser(@RequestParam(name = "codiceFiscale", required = true) String codiceFiscale, RedirectAttributes redirectAttributes, SessionStatus sessionStatus) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if (!StringUtils.isEmpty(codiceFiscale)) {
@@ -177,9 +178,13 @@ public class DemoController extends AbstractController {
 			sessionStatus.setComplete();
 		}
 		
-		modelAndView.addObject("showTab", TAB_MOD);
-		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
-		modelAndView.setViewName("gestione_utenti");
+		redirectAttributes.addFlashAttribute("showTab", TAB_MOD);
+		redirectAttributes.addFlashAttribute("successMessage", "Utente eliminato con successo.");
+		
+//		modelAndView.addObject("showTab", TAB_MOD);
+//		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
+
+		modelAndView.setViewName("redirect:/gestioneUtenti");
 		
 		return modelAndView;
 	}
