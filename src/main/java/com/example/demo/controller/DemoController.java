@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -38,6 +39,8 @@ public class DemoController extends AbstractController {
 	
 	@Autowired
 	WebConfig webconfig;
+	
+	MessageSource messageSource;
 	
 	@RequestMapping(value = "/home",  method = RequestMethod.GET)
 	public ModelAndView get() {
@@ -87,7 +90,7 @@ public class DemoController extends AbstractController {
 		
 		userService.save(user);
 		
-		modelAndView.addObject("successMessage", "Modifiche salvata correttamente.");
+		modelAndView.addObject("successMessage", "Modifiche salvate correttamente.");
 		modelAndView.addObject("dettaglioUtente", new User());
 		sessionStatus.setComplete();
 		
@@ -110,30 +113,34 @@ public class DemoController extends AbstractController {
 				model.addAttribute("successMessage", String.format("Utente %s %s correttamente creato.", res.getNome(), res.getCognome()));
 			}
 		} else {
-			model.addAttribute("errorMessage", "Sono presenti degli errori nei dati inseriti, si prega di riprovare.");
+			model.addAttribute("errorMessage", "Ci sono errori nel form, ricontrollare.");
+//			model.addAttribute("errorMessage", messageSource.getMessage("user.save.error", null, null));
 		}
 		
 		model.addAttribute("showTab", TAB_NEW);
-		
 		return "gestione_utenti";
 	}
 	
-	
-	
-//	@RequestMapping(value = "/getUserMock", method = RequestMethod.GET)
-	public User getUserMock() {
-		User user = new User();
-		user.setCitta("Roma");
-		user.setEmail("cloooze@gmail.com");
-		user.setCodiceFiscale("BRGNDR82S08G274S");
-		user.setCognome("Braghese");
-		user.setNome("Andrea");
-		user.setDataNascita(DateUtils.create("1982", "11", "08").getTime());
-		user.setNumeroTelefono("3351051146");
-		user.setIndirizzo("Vicolo del duomo 5");
-		user.setIdTessera(Long.getLong("1"));
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+	public ModelAndView deleteUser(@RequestParam(name = "codiceFiscale", required = true) String codiceFiscale, SessionStatus sessionStatus) {
+		ModelAndView modelAndView = new ModelAndView();
 		
-		return user;
+		if (!StringUtils.isEmpty(codiceFiscale)) {
+			userService.deleteUserByCodiceFiscale(codiceFiscale);
+			sessionStatus.setComplete();
+		}
+		
+		modelAndView.addObject("showTab", TAB_MOD);
+		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
+		modelAndView.setViewName("gestione_utenti");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)
+	@ResponseBody
+	public Long getFirstAvailableIdTessera() {
+		return userService.getFirstAvailableIdTessera();
 	}
 	
 	@RequestMapping(value = "/aggiornaListaUtenti", method = RequestMethod.GET)
@@ -146,7 +153,6 @@ public class DemoController extends AbstractController {
 		
 		return modelAndView;
 	}
-	
 	
 	@ModelAttribute("utente")
 	public User getModelUtente() {
