@@ -137,12 +137,6 @@ public class DemoController extends AbstractController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/getFirstAvailableIdTessera", method = RequestMethod.GET)
-	@ResponseBody
-	public Long getFirstAvailableIdTessera() {
-		return userService.getFirstAvailableIdTessera();
-	}
-	
 	@RequestMapping(value = "/aggiornaListaUtenti", method = RequestMethod.GET)
 	public ModelAndView aggiornaListaUtenti() {
 		ModelAndView modelAndView = new ModelAndView();
