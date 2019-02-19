@@ -120,23 +120,7 @@ public class DemoController extends AbstractController {
 		model.addAttribute("showTab", TAB_NEW);
 		return "gestione_utenti";
 	}
-	
-	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
-	public ModelAndView deleteUser(@RequestParam(name = "codiceFiscale", required = true) String codiceFiscale, SessionStatus sessionStatus) {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		if (!StringUtils.isEmpty(codiceFiscale)) {
-			userService.deleteUserByCodiceFiscale(codiceFiscale);
-			sessionStatus.setComplete();
-		}
-		
-		modelAndView.addObject("showTab", TAB_MOD);
-		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
-		modelAndView.setViewName("gestione_utenti");
-		
-		return modelAndView;
-	}
-	
+
 	@RequestMapping(value = "/aggiornaListaUtenti", method = RequestMethod.GET)
 	public ModelAndView aggiornaListaUtenti() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -180,9 +164,6 @@ public class DemoController extends AbstractController {
 		
 		redirectAttributes.addFlashAttribute("showTab", TAB_MOD);
 		redirectAttributes.addFlashAttribute("successMessage", "Utente eliminato con successo.");
-		
-//		modelAndView.addObject("showTab", TAB_MOD);
-//		modelAndView.addObject("successMessage", "Utente eliminato con successo.");
 
 		modelAndView.setViewName("redirect:/gestioneUtenti");
 		
