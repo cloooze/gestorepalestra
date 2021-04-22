@@ -15,7 +15,9 @@
     <body style="background-color:#eee">
         <div class="container rounded" style="padding:20px;min-height: 768px; max-height:100%; background-color:white">
         	<div th:replace="common-components :: header"></div>
-        	<hr>
+        	<!--   <hr> -->
+        	<div th:replace="common-components :: nav_bar"></div>
+        	<br>
         	<div th:replace="common-components :: alert_message"></div>
      		<div class="col-xs-12" style="height:10px;"></div>
         	<div layout:fragment="content">Page content goes here</div>

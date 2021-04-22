@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main-template">
+    <head>
+        <title>Gestione Soggetti</title>
+    </head>
+     <body>
+        <div layout:fragment="content">
+	        <div th:replace="fragments/inserimento :: inserimento_testata"></div>
+        </div>
+    </body>
+    <th:block layout:fragment="scripts">
+    </th:block>
+</html>

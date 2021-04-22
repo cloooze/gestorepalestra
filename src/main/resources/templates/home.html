@@ -7,26 +7,47 @@
         <title>Home Page</title>
     </head>
     <body>
-    <div layout:fragment="content" class="row col-md-12">
-    	<div style="padding-right: 10px;">
-	    	<div class="card" style="width: 15rem;" >
-			  <!--  <img class="card-img-top" src="..." alt="Card image cap"> -->
-			  <div class="card-body">
-			    <h5 class="card-title">Gestione Utenti</h5>
-			    <p class="card-text">Da questa sezione &egrave; possibile gestire il database utenti, insrimento, cancellazione e modifica.</p>
-			    <a href="/gestioneUtenti" class="btn btn-primary">Vai a Gestione Utenti</a>
-			  </div>
+    <div layout:fragment="content">
+    	<div class="row col-md-6">
+	    	<div style="padding-right: 10px;">
+		    	<div class="card" style="width: 15rem;" >
+				  <!--  <img class="card-img-top" src="..." alt="Card image cap"> -->
+				  <div class="card-body">
+				    <h5 class="card-title">Gestione Utenti</h5>
+				    <p class="card-text">Da questa sezione &egrave; possibile gestire il database utenti, insrimento, cancellazione e modifica.</p>
+				    <div style="text-align: right;">
+				    	<a href="/gestioneUtenti" style="text-align: right;">Vai&nbsp;<i class="fas fa-arrow-right"></i></a>
+				    </div>
+				  </div>
+				</div>
+			</div>
+			<div style="padding-right: 10px;">
+				<div class="card" style="width: 15rem;">
+				  <!--  <img class="card-img-top" src="..." alt="Card image cap"> -->
+				  <div class="card-body">
+				    <h5 class="card-title">Gestione Utenti</h5>
+				    <p class="card-text">Da questa sezione &egrave; possibile gestire il database utenti, insrimento, cancellazione e modifica.</p>
+				    <div style="text-align: right;">
+				    	<a href="/gestioneUtenti">Vai a Gestione Utenti</a>
+				    </div>
+				  </div>
+				</div>
 			</div>
 		</div>
-		<div style="padding-right: 10px;">
-			<div class="card" style="width: 15rem;">
-			  <!--  <img class="card-img-top" src="..." alt="Card image cap"> -->
-			  <div class="card-body">
-			    <h5 class="card-title">Gestione Utenti</h5>
-			    <p class="card-text">Da questa sezione &egrave; possibile gestire il database utenti, insrimento, cancellazione e modifica.</p>
-			    <a href="/gestioneUtenti" class="btn btn-primary">Vai a Gestione Utenti</a>
-			  </div>
-			</div>
+		<div style="padding-top: 10px;">
+			Soggetti
+			<br>
+			<a href="/soggetti/inserimentoTestata" >Inserimento testata</a>
+			<br>
+			<a href="/soggetti/inserimentoMassivo" >Inserimento massivo</a>
+			<br>
+			<a href="/soggetti/inserimentoRichiamo" >Inserimento richiamo singolo</a>
+			<br>
+			<a href="/soggetti/ricerca" >Ricerca singola</a>
+			<br>
+			<a href="/soggetti/ricercaMassiva" >Ricerca massiva</a>
+			<br>
+			Materie
 		</div>
 	</div>
     </body>

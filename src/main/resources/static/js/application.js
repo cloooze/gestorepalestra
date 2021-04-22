@@ -44,9 +44,29 @@ $(document).ready(function() {
     		
     	]
     });
-   
-   
     
+    $(".nav-item").on("click", function(){
+	   $(".nav-item").find(".active").removeClass("active");
+	   $(this).addClass("active");
+	});
+    
+    //funzione per aggiungere i richiami non più utilizzata
+    $('#clc').click(function(e) {
+    	let elem = `
+    			<div class="form-row" id="my-form">
+			    	<div class="form-group col-6">
+				        <label for="inputNome">Nome *</label>
+				        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
+			        </div>
+			        <div class="form-group col-6">
+				       <label for="inputCognome">Cognome *</label>
+			           <input type="text" class="form-control" id="inputCognome" th:field="*{cognome}" placeholder="Cognome">
+			        </div>
+			    </div>
+			        `;
+	  	$('#form_nuovo_soggetto').prepend(elem);
+    });
+     
     $('#test tbody').on( 'click', 'button', function () {
         var d = table.row( $(this).parents('tr') ).data();
         alert( 'codicefiscale: ' + d.codiceFiscale);
@@ -69,5 +89,4 @@ $(document).ready(function() {
     		$('#inputIdTessera').val(result);
         }});
     });
-    
 } );
