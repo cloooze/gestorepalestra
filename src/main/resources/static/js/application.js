@@ -45,6 +45,12 @@ $(document).ready(function() {
     	]
     });
     
+    //rimuove contorno rossa dall'input e eventuali messaggi di errore nel tag <small>
+    $("input").on("click", function() {
+    	$(this).removeClass("is-invalid");
+    	$(this).next("small").remove();
+    });
+    
     $(".nav-item").on("click", function(){
 	   $(".nav-item").find(".active").removeClass("active");
 	   $(this).addClass("active");

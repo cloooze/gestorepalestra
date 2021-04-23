@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main-template">
+    <head>
+        <title>Ricerca Soggetti</title>
+    </head>
+     <body>
+        <div layout:fragment="content">
+        	<div class="row justify-content-center">
+	        	<h4>Ricerca Soggetti</h4>
+	        </div>
+	        <form th:object="${soggetto}" th:action="@{/soggetti/ricerca}" method="POST" id="form_nuovo_soggetto" class="shadow-none p-3 mb-3 bg-light rounded">
+			    <div class="form-row">
+			    	<div class="form-group col-8">
+				        <label for="inputNome">Generalità</label>
+				        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? is-invalid">
+				        <small class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Incorrect date</small>
+			        </div>
+			        <div class="form-group col-1">
+				       <label for="inputGiorno">Giorno</label>
+			           <input type="text" class="form-control" id="inputGiorno" th:field="*{giornoNascita}">
+			        </div>
+			        <div class="form-group col-1">
+				       <label for="inputMese">Mese</label>
+			           <input type="text" class="form-control" id="inputMese" th:field="*{meseNascita}">
+			        </div>
+			        <div class="form-group col-2">
+				       <label for="inputAnno">Anno</label>
+			           <input type="text" class="form-control" id="inputAnno" th:field="*{annoNascita}">
+			        </div>
+			    </div>
+			    <div class="row justify-content-center">
+				    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>&nbsp;Ricerca</button>
+			    </div>
+			</form>
+			
+			<div th:unless="${soggettiTrovati == null}" class="row justify-content-center">Risultati Ricerca&nbsp;[<span th:text="${soggettiTrovati.size}"></span>]</div>
+			
+			<!-- 
+			<div th:each="soggettoTrovato : ${soggettiTrovati}" class="shadow-none p-3 mb-3 bg-light rounded">
+			    <div class="form-row">
+			        <div class="form-group col-4">
+				       <label for="inputNome">Generalità</label>
+				       <input type="text" class="form-control" id="inputNome" disabled th:value="${soggettoTrovato.nome}">
+			        </div>
+			        <div class="form-group col-2">
+				       <label for="inputDataNascita">Data Nascita</label>
+				       <input type="text" class="form-control" id="inputDataNascita" disabled th:value="${soggettoTrovato.giornoNascita} + '/' + ${soggettoTrovato.meseNascita} + '/' + ${soggettoTrovato.annoNascita}">
+			        </div>
+			   </div>
+			</div>
+			 -->
+			
+			<table class="table table-hover" th:unless="${soggettiTrovati == null}">
+			  <thead>
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">Generalità</th>
+			      <th scope="col">Data Nascita</th>
+			      <th scope="col">Dummy</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr th:each="soggettoTrovato, itemStat : ${soggettiTrovati}">
+			      <td th:text="${itemStat.index} + 1"></td>	
+			      <td><a th:href="@{/home/{id}(id=${soggettoTrovato.id})}" th:text="${soggettoTrovato.nome}"></a></td>
+			      <td th:text="${soggettoTrovato.giornoNascita} + '/' + ${soggettoTrovato.meseNascita} + '/' + ${soggettoTrovato.annoNascita}"></td>
+			      <td>@fat</td>
+			    </tr>
+			  </tbody>
+			</table>
+        </div>
+       
+    </body>
+    <th:block layout:fragment="scripts">
+    </th:block>
+</html>

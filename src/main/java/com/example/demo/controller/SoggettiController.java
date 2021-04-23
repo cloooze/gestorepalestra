@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -24,12 +25,12 @@ public class SoggettiController extends AbstractController {
 	public ModelAndView get() {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		SoggettoDto sogg = new SoggettoDto();
-		Richiamo richiamo = new Richiamo();
-		richiamo.setProtocollo(123);
-		sogg.setRichiami(Arrays.asList(richiamo));
+		SoggettoDto soggetto = new SoggettoDto();
+//		Richiamo richiamo = new Richiamo();
+//		richiamo.setProtocollo(123);
+//		soggetto.setRichiami(Arrays.asList(richiamo));
 		
-		modelAndView.addObject("soggetto", sogg);
+		modelAndView.addObject("soggetto", soggetto);
 		modelAndView.setViewName("soggetti/inserimento_testata");
 		
 		return modelAndView;
@@ -37,14 +38,12 @@ public class SoggettiController extends AbstractController {
 	
 	@RequestMapping(value = "/salvaSoggetto", method = RequestMethod.POST)
 	public String salvaSoggetto(Model model, @ModelAttribute("soggetto") @Valid SoggettoDto soggetto, BindingResult bindingResult) {
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("soggetti/inserimento_testata");
-//		modelAndView.addObject("soggetto", soggetto);
-		
 		if (!bindingResult.hasErrors()) {
-			model.addAttribute("successMessage", String.format("Soggetto correttamente creato."));
+			model.addAttribute("successMessage", "Soggetto correttamente creato.");
+			model.addAttribute("soggetto", new SoggettoDto());
 		} else {
 			model.addAttribute("errorMessage", "Ci sono errori nel form, ricontrollare.");
+//			bindingResult.rejectValue("nome", "nome", "blabla"); Aggiunge manualmente un errore al bindingResult
 		}
 		
 		return "soggetti/inserimento_testata";
@@ -77,16 +76,51 @@ public class SoggettiController extends AbstractController {
 	}
 
 	
-	
-	@RequestMapping(value = "/ricerca", method = RequestMethod.GET)
-	public ModelAndView ricerca() {
+	@RequestMapping(value = "/gestione", method = RequestMethod.GET)
+	public ModelAndView gestione() {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("soggetto", new SoggettoDto());
-		modelAndView.addObject("risultatiRicerca", Boolean.FALSE);
-		modelAndView.setViewName("soggetti/ricerca");
+		modelAndView.setViewName("soggetti/gestione");
 		
 		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/ricerca", method = RequestMethod.POST)
+	public ModelAndView ricerca(@ModelAttribute("soggetto") @Valid SoggettoDto soggetto, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if (!bindingResult.hasErrors()) {
+			modelAndView.addObject("soggetto", soggetto);
+			modelAndView.addObject("soggettiTrovati", getSoggettiTest());
+		} else {
+//			modelAndView.addObject("errorMessage", "Ci sono errori nel form, ricontrollare.");
+		}
+		
+		modelAndView.setViewName("soggetti/gestione");
+		
+		return modelAndView;
+	}
+	
+	public List<SoggettoDto> getSoggettiTest() {
+		SoggettoDto s1 = new SoggettoDto();
+		SoggettoDto s2 = new SoggettoDto();
+		
+		s1.setId(11);
+		s2.setId(22);
+		s1.setNome("Andrea");
+		s2.setNome("Luca");
+		
+		s1.setGiornoNascita(8);
+		s1.setMeseNascita(11);
+		s1.setAnnoNascita(1982);
+		
+		s2.setGiornoNascita(1);
+		s2.setMeseNascita(12);
+		s2.setAnnoNascita(1980);
+		
+		return Arrays.asList(s1, s2);
 	}
 	
 	

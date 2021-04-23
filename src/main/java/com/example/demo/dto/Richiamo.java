@@ -20,5 +20,8 @@ public class Richiamo {
 	
 	@NotEmpty(message = "{validation.richiamo.campoInvalido}")
 	private String classifica;
+	
+	@NotEmpty(message = "{validation.richiamo.campoInvalido}")
+	private String sottoClassifica;
 
 }

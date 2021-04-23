@@ -37,6 +37,8 @@
 		<div style="padding-top: 10px;">
 			Soggetti
 			<br>
+			<a href="/soggetti/gestione" >Gestione Soggetti</a>
+			<br>
 			<a href="/soggetti/inserimentoTestata" >Inserimento testata</a>
 			<br>
 			<a href="/soggetti/inserimentoMassivo" >Inserimento massivo</a>
@@ -48,6 +50,20 @@
 			<a href="/soggetti/ricercaMassiva" >Ricerca massiva</a>
 			<br>
 			Materie
+			<br>
+			<br>
+			Authenticated User:
+			<span th:text ="${#request.getRemoteUser()}"></span>
+			<br>
+			<div sec:authorize="isAuthenticated()">
+			  This content is only shown to authenticated users.
+			</div>
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+			  This content is only shown to administrators.
+			</div>
+			<div sec:authorize="hasRole('ROLE_USER')">
+			  This content is only shown to users.
+			</div>
 		</div>
 	</div>
     </body>
