@@ -51,28 +51,34 @@ $(document).ready(function() {
     	$(this).next("small").remove();
     });
     
+    
+    
+    
+    modificaRichiamo = function(index){ 
+        //abilita tutti i campi input della scheda richiamo
+    	var but = $("#modificaRichiamo_" + index);
+    	var index = index.toString();
+    	
+    	if (but.text() === 'Modifica') {
+	    	$("#schedaRichiamo_" + index).find('input').each(function () {
+				$(this).prop('readonly', false);
+			});
+			but.text("Annulla");
+		} else if (but.text() === 'Annulla') {
+			$("#schedaRichiamo_" + index).find('input').each(function () {
+				$(this).prop('readonly', true);
+			});
+			but.text("Modifica");
+		} 
+    };
+
+    
+    
     $(".nav-item").on("click", function(){
 	   $(".nav-item").find(".active").removeClass("active");
 	   $(this).addClass("active");
 	});
-    
-    //funzione per aggiungere i richiami non più utilizzata
-    $('#clc').click(function(e) {
-    	let elem = `
-    			<div class="form-row" id="my-form">
-			    	<div class="form-group col-6">
-				        <label for="inputNome">Nome *</label>
-				        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" placeholder="Nome">
-			        </div>
-			        <div class="form-group col-6">
-				       <label for="inputCognome">Cognome *</label>
-			           <input type="text" class="form-control" id="inputCognome" th:field="*{cognome}" placeholder="Cognome">
-			        </div>
-			    </div>
-			        `;
-	  	$('#form_nuovo_soggetto').prepend(elem);
-    });
-     
+	
     $('#test tbody').on( 'click', 'button', function () {
         var d = table.row( $(this).parents('tr') ).data();
         alert( 'codicefiscale: ' + d.codiceFiscale);

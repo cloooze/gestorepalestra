@@ -1,5 +1,5 @@
 <div th:fragment="header">
-	<div style="padding-left: 15px;"class="row" >
+	<div style="padding-left: 15px;" class="row" >
 		<img src="/img/flag-italy.webp" alt="Italian flag" width="50" height="50"> 
 		<h1>Bootstrap <small>An intuitive front-end framework</small></h1>
 	</div>
@@ -41,11 +41,27 @@
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Soggetti
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="/soggetti/gestione">Ricerca</a>
+				<a class="dropdown-item" href="/soggetti/inserimentoTestata">Inserimento</a>
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Materie
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="#">Ricerca</a>
+				<a class="dropdown-item" href="#">Inserimento</a>
+			</div>
+		</li>
+	       
 	      <li class="nav-item">
-	        <a class="nav-link" href="/soggetti/inserimentoTestata">Soggetti</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="/soggetti/ricerca">Materie</a>
+	        <a class="nav-link" href="/soggetti/inserimentoTestata">Funzioni Massive</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">Help</a>
@@ -53,6 +69,29 @@
 	    </ul>
 	  </div>
 	</nav>
+</div>
+
+<div th:fragment="testata_soggetto">
+		<div class="form-group col-8">
+	        <label for="inputNome">Generalita</label>
+	        <input type="text" class="form-control" id="inputNome" th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? is-invalid">
+	        <small class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Incorrect date</small>
+        </div>
+        <div class="form-group col-1">
+	        <label for="inputGiornoNascita">Giorno</label>
+	        <input type="text" class="form-control" id="inputGiornoNascita" th:field="*{giornoNascita}" th:classappend="${#fields.hasErrors('giornoNascita')} ? is-invalid">
+	        <small class="text-danger" th:if="${#fields.hasErrors('giornoNascita')}" th:errors="*{giornoNascita}">Incorrect date</small>
+        </div>
+        <div class="form-group col-1">
+	        <label for="inputMeseNascita">Mese</label>
+	        <input type="text" class="form-control" id="inputMeseNascita" th:field="*{meseNascita}" th:classappend="${#fields.hasErrors('meseNascita')} ? is-invalid">
+	        <small class="text-danger" th:if="${#fields.hasErrors('meseNascita')}" th:errors="*{meseNascita}">Incorrect date</small>
+        </div>
+        <div class="form-group col-2">
+	        <label for="inputAnnoNascita">Anno</label>
+	        <input type="text" class="form-control" id="inputAnnoNascita" th:field="*{annoNascita}" th:classappend="${#fields.hasErrors('annoNascita')} ? is-invalid">
+	        <small class="text-danger" th:if="${#fields.hasErrors('annoNascita')}" th:errors="*{annoNascita}">Incorrect date</small>
+        </div>
 </div>
 
 

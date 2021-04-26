@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.dto.Richiamo;
@@ -52,8 +55,10 @@ public class SoggettiController extends AbstractController {
 	@RequestMapping(value="/salvaSoggetto", params={"aggiungiRichiamo"}, method = RequestMethod.POST)
 	public ModelAndView aggiungiRichiamo(final SoggettoDto soggetto) {
 		ModelAndView modelAndView = new ModelAndView();
-		
-		soggetto.getRichiami().add(0, new Richiamo());
+		Richiamo richiamo = new Richiamo();
+		richiamo.setEnabled(true);
+		richiamo.setEnableModifica(false);
+		soggetto.getRichiami().add(0, richiamo);
 		modelAndView.addObject("soggetto", soggetto);
 		
 		modelAndView.setViewName("soggetti/inserimento_testata");
@@ -62,11 +67,10 @@ public class SoggettiController extends AbstractController {
 	}
 	
 	@RequestMapping(value="/salvaSoggetto", params={"rimuoviRichiamo"}, method = RequestMethod.POST)
-	public ModelAndView rimuoviRichiamo(final SoggettoDto soggetto, HttpServletRequest req) {
+	public ModelAndView rimuoviRichiamo(final SoggettoDto soggetto, @RequestParam("rimuoviRichiamo") String index, HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		final Integer richiamoId = Integer.valueOf(req.getParameter("rimuoviRichiamo"));
-		soggetto.getRichiami().remove(richiamoId.intValue());
+		soggetto.getRichiami().remove(Integer.parseInt(index));
 		
 		modelAndView.addObject("soggetto", soggetto);
 		
@@ -123,6 +127,41 @@ public class SoggettiController extends AbstractController {
 		return Arrays.asList(s1, s2);
 	}
 	
+	
+	
+	@RequestMapping(value = "/ricerca/{id}", method = RequestMethod.GET)
+	public ModelAndView ricerca(@PathVariable("id") Integer id) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		SoggettoDto s1 = new SoggettoDto();
+		
+		s1.setId(11);
+		s1.setNome("Andrea");
+		
+		s1.setGiornoNascita(8);
+		s1.setMeseNascita(11);
+		s1.setAnnoNascita(1982);
+		
+		Richiamo richiamo = new Richiamo();
+		richiamo.setClassifica("ABC");
+		richiamo.setDataProtocollo(LocalDate.now());
+		richiamo.setProtocollo(123);
+		richiamo.setVoceFascicolo("A123");
+		
+		Richiamo richiamo2 = new Richiamo();
+		richiamo2.setClassifica("ZYX");
+		richiamo2.setDataProtocollo(LocalDate.now());
+		richiamo2.setProtocollo(123);
+		richiamo2.setVoceFascicolo("B777");
+		
+		s1.setRichiami(Arrays.asList(richiamo, richiamo2));
+		modelAndView.setViewName("soggetti/gestione");
+		
+		modelAndView.addObject("soggetto", s1);
+		modelAndView.setViewName("soggetti/inserimento_testata");
+		
+		return modelAndView;
+	}
 	
 	
 	

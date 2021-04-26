@@ -23,5 +23,8 @@ public class Richiamo {
 	
 	@NotEmpty(message = "{validation.richiamo.campoInvalido}")
 	private String sottoClassifica;
+	
+	private Boolean enabled = false;
+	private Boolean enableModifica = true;
 
 }

@@ -1,3 +1,21 @@
 .btn {
     border-radius: 0px;
+    box-shadow:  0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.form-control {
+	border-radius: 0px;
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+
+.table td {
+	padding: .50rem;
+}
+
+.shadow {
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+
+.shadow-m {
+	box-shadow:  0 .5rem 1rem rgba(0,0,0,.15);
 }

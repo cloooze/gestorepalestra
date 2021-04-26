@@ -8,7 +8,120 @@
     </head>
      <body>
         <div layout:fragment="content">
-	        <div th:replace="fragments/inserimento :: inserimento_testata"></div>
+	        <div class="row justify-content-center">
+	        	<h4>Testata</h4>
+	        </div>
+			<form th:object="${soggetto}" th:action="@{/soggetti/salvaSoggetto}" method="POST" id="form_nuovo_soggetto">
+			    <div class="form-row shadow-none p-3 mb-3 bg-light rounded" th:include="common-components :: testata_soggetto"></div>
+			    <br>
+			    <div> <!--  style="margin-left:20px;margin-right:20px">  -->
+				    <div class="form-inline pt-3 pb-1">
+				    	<h4>Richiami</h4>
+				    	<button type="submit" class="btn btn-sm btn-outline-secondary" name="aggiungiRichiamo" style="margin-left:10px;">
+					    	<i class="fas fa-plus"></i>&nbsp;<span th:text="#{soggetti.button.aggiungiRichiamo}"></span>
+					    </button>
+				    </div>
+				    <div id="schedaRichiamo" th:each="richiamo, itemStat : *{richiami}" class="shadow-none p-3 mb-3 bg-light rounded">
+					    <div th:attr="id=schedaRichiamo_+${itemStat.index}">
+					    	<div class="form-row justify-content-end" >
+					    		<div class="form-group">
+						    		<span th:if="${richiamo.enableModifica == true}" th:attr="id=modificaRichiamo_+${itemStat.index}, onclick='modificaRichiamo(\'' + ${itemStat.index} + '\');'" class="btn btn-sm btn-outline-secondary">Modifica</span>
+						    		<button type="submit" class="btn btn-sm btn-outline-danger" th:value="${itemStat.index}" name="rimuoviRichiamo">Elimina</button>
+						    		<span class="btn btn-sm btn-outline-danger" th:value="${itemStat.index}" name="rimuoviRichiamo" data-toggle="modal" data-target="#eliminaRichiamoModal">Elimina_modal</span>
+					    		</div>
+					    	</div>
+						    <div class="form-row">
+						        <div class="form-group col-4">
+							       <label for="inputProtocollo">Protocolo</label>
+							       <input 
+							       		type="hidden" 
+							       		class="form-control" 
+							       		id="inputProtocollo" 
+							       		th:field="*{richiami[__${itemStat.index}__].enableModifica}">
+							       	<input 
+							       		type="hidden" 
+							       		class="form-control" 
+							       		id="inputProtocollo" 
+							       		th:field="*{richiami[__${itemStat.index}__].enabled}">
+							       <input 
+							       		type="text" 
+							       		class="form-control" 
+							       		id="inputProtocollo" 
+							       		th:field="*{richiami[__${itemStat.index}__].protocollo}"
+							       		th:classappend="${#fields.hasErrors('richiami[__${itemStat.index}__].protocollo')} ? is-invalid" 
+							       	 	th:attr="readonly=${#bools.isFalse(richiamo.enabled)}">
+							       <small class="text-danger" th:if="${#fields.hasErrors('richiami[__${itemStat.index}__].protocollo')}" th:errors="*{richiami[__${itemStat.index}__].protocollo}">Incorrect date</small>
+						        
+						        </div>
+						        <div class="form-group col-1">
+								     <label for="inputGiorno">Giorno</label>
+								     <input 
+								     	type="text" 
+								     	class="form-control" 
+								     	id="inputGiorno" 
+								     	th:attr="readonly=${#bools.isFalse(richiamo.enabled)}">
+							    </div>
+							   <div class="form-group col-1">
+								     <label for="inputMese">Mese</label>
+								     <input 
+								     	type="text" 
+								     	class="form-control" 
+								     	id="inputMese" 
+								     	th:attr="readonly=${#bools.isFalse(richiamo.enabled)}">
+							     </div>
+							     <div class="form-group col-2">
+								     <label for="inputAnno">Anno</label>
+								     <input 
+								     	type="text" 
+								     	class="form-control" 
+								     	id="inputAnno" 
+								     	th:attr="readonly=${#bools.isFalse(richiamo.enabled)}">
+							    </div>
+						   </div>
+						   <div class="form-row">
+						   		<div class="form-group col-4">
+						           <label for="inputVoceFascicolo">Voce Fascicolo</label>
+						           <input 
+						           		type="text" 
+						           		class="form-control" 
+						           		id="inputVoceFascicolo" 
+						           		th:field="*{richiami[__${itemStat.index}__].voceFascicolo}" 
+						           		th:classappend="${#fields.hasErrors('richiami[__${itemStat.index}__].voceFascicolo')} ? is-invalid" 
+						           		th:attr="readonly=${#bools.isFalse(richiamo.enabled)}">
+						           	<small class="text-danger" th:if="${#fields.hasErrors('richiami[__${itemStat.index}__].voceFascicolo')}" th:errors="*{richiami[__${itemStat.index}__].voceFascicolo}">Incorrect date</small>
+						        </div>
+						        <div class="form-group col-4">
+						           <label for="inputIntero">Classifica</label>
+							       <input 
+							       		type="text" 
+							       		class="form-control" 
+							       		id="inputDataProtocollo" 
+							       		th:field="*{richiami[__${itemStat.index}__].classifica}"
+							       	    th:classappend="${#fields.hasErrors('richiami[__${itemStat.index}__].classifica')} ? is-invalid" 
+							       	    th:attr="readonly=${#bools.isFalse(richiamo.enabled)}">
+							       	<small class="text-danger" th:if="${#fields.hasErrors('richiami[__${itemStat.index}__].voceFascicolo')}" th:errors="*{richiami[__${itemStat.index}__].classifica}">Incorrect date</small>
+						        </div>
+						        <div class="form-group col-4">
+						           <label for="inputIntero">Sottoclassifica</label>
+							       <input 
+							       		type="text" 
+							       		class="form-control" 
+							       		id="inputDataProtocollo" 
+							       		th:field="*{richiami[__${itemStat.index}__].sottoClassifica}" 
+							       		th:classappend="${#fields.hasErrors('richiami[__${itemStat.index}__].sottoClassifica')} ? is-invalid" 
+							       		th:attr="readonly=${#bools.isFalse(richiamo.enabled)}">
+							       	<small class="text-danger" th:if="${#fields.hasErrors('richiami[__${itemStat.index}__].sottoClassifica')}" th:errors="*{richiami[__${itemStat.index}__].sottoClassifica}">Incorrect date</small>
+						        </div>
+						  </div>
+						  <div th:replace="fragments/modals :: eliminaRichiamoModal"></div>
+					    </div>
+					</div>
+			    </div>
+			    
+			    <div class="row justify-content-center">
+				    <button type="submit" class="btn btn-sm btn-secondary"><span th:text="#{soggetti.button.inserisci}"></span></button>
+			    </div>
+			</form>
         </div>
     </body>
     <th:block layout:fragment="scripts">
