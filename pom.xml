@@ -17,6 +17,10 @@
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
+	<scm>
+	  <developerConnection>scm:git:https://github.com/cloooze/gestorepalestra.git</developerConnection>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,6 +99,11 @@
 		            </exclude>
 		          </excludes>
 		        </configuration>
+		      </plugin>
+		      <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-release-plugin</artifactId>
+		        <version>3.0.0-M4</version>
 		      </plugin>
 		</plugins>
 	</build>

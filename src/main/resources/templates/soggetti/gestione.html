@@ -6,7 +6,7 @@
     <head>
         <title>Ricerca Soggetti</title>
     </head>
-     <body>
+    <body>
         <div layout:fragment="content">
         	<div class="row justify-content-center">
 	        	<h4>Ricerca Soggetti</h4>
@@ -17,17 +17,15 @@
 				    <button type="submit" class="btn btn-sm btn-secondary"><i class="fa fa-search"></i>&nbsp;Ricerca</button>
 			    </div>
 			</form>
-			
 			<br>
-			
-			<table class="table table-hover" th:unless="${soggettiTrovati == null}">
+			<table class="table table-bordered table-striped" th:unless="${soggettiTrovati == null}">
 			  <caption><span th:text="${soggettiTrovati.size}"></span>&nbsp;Risultati trovati</caption>
-			  <thead class="thead-light">
+			  <thead>
 			    <tr>
-			      <th scope="col">#</th>
-			      <th scope="col">Generalità</th>
-			      <th scope="col">Data Nascita</th>
-			      <th scope="col">Dummy</th>
+			      <td>#</td>
+			      <td>Generalità</td>
+			      <td>Data Nascita</td>
+			      <td>Dummy</td>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -35,7 +33,7 @@
 			      <td th:text="${itemStat.index} + 1"></td>	
 			      <td><a th:href="@{/soggetti/ricerca/{id}(id=${soggettoTrovato.id})}" th:text="${soggettoTrovato.nome}"></a></td>
 			      <td th:text="${soggettoTrovato.giornoNascita} + '/' + ${soggettoTrovato.meseNascita} + '/' + ${soggettoTrovato.annoNascita}"></td>
-			      <td>@fat</td>
+			      <td></td>
 			    </tr>
 			  </tbody>
 			</table>

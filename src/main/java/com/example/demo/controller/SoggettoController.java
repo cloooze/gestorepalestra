@@ -22,7 +22,7 @@ import com.example.demo.dto.SoggettoDto;
 
 @Controller
 @RequestMapping("/soggetti")
-public class SoggettiController extends AbstractController {
+public class SoggettoController extends AbstractController {
 	
 	@RequestMapping(value = "/inserimentoTestata", method = RequestMethod.GET)
 	public ModelAndView get() {
@@ -34,7 +34,7 @@ public class SoggettiController extends AbstractController {
 //		soggetto.setRichiami(Arrays.asList(richiamo));
 		
 		modelAndView.addObject("soggetto", soggetto);
-		modelAndView.setViewName("soggetti/inserimento_testata");
+		modelAndView.setViewName("soggetti/inserimento");
 		
 		return modelAndView;
 	}
@@ -49,7 +49,7 @@ public class SoggettiController extends AbstractController {
 //			bindingResult.rejectValue("nome", "nome", "blabla"); Aggiunge manualmente un errore al bindingResult
 		}
 		
-		return "soggetti/inserimento_testata";
+		return "soggetti/inserimento";
 	}
 	
 	@RequestMapping(value="/salvaSoggetto", params={"aggiungiRichiamo"}, method = RequestMethod.POST)
@@ -61,7 +61,7 @@ public class SoggettiController extends AbstractController {
 		soggetto.getRichiami().add(0, richiamo);
 		modelAndView.addObject("soggetto", soggetto);
 		
-		modelAndView.setViewName("soggetti/inserimento_testata");
+		modelAndView.setViewName("soggetti/inserimento");
 		
 		return modelAndView;
 	}
@@ -74,11 +74,10 @@ public class SoggettiController extends AbstractController {
 		
 		modelAndView.addObject("soggetto", soggetto);
 		
-		modelAndView.setViewName("soggetti/inserimento_testata");
+		modelAndView.setViewName("soggetti/inserimento");
 		
 		return modelAndView;
 	}
-
 	
 	@RequestMapping(value = "/gestione", method = RequestMethod.GET)
 	public ModelAndView gestione() {
@@ -89,7 +88,6 @@ public class SoggettiController extends AbstractController {
 		
 		return modelAndView;
 	}
-	
 	
 	@RequestMapping(value = "/ricerca", method = RequestMethod.POST)
 	public ModelAndView ricerca(@ModelAttribute("soggetto") @Valid SoggettoDto soggetto, BindingResult bindingResult) {
@@ -127,8 +125,6 @@ public class SoggettiController extends AbstractController {
 		return Arrays.asList(s1, s2);
 	}
 	
-	
-	
 	@RequestMapping(value = "/ricerca/{id}", method = RequestMethod.GET)
 	public ModelAndView ricerca(@PathVariable("id") Integer id) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -158,7 +154,7 @@ public class SoggettiController extends AbstractController {
 		modelAndView.setViewName("soggetti/gestione");
 		
 		modelAndView.addObject("soggetto", s1);
-		modelAndView.setViewName("soggetti/inserimento_testata");
+		modelAndView.setViewName("soggetti/inserimento");
 		
 		return modelAndView;
 	}

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class DemoController extends AbstractController {
 	MessageSource messageSource;
 	
 	@RequestMapping(value = "/home",  method = RequestMethod.GET)
-	public ModelAndView get() {
+	public ModelAndView get(HttpSession session) {
 		return new ModelAndView("home");
 	}
 	
